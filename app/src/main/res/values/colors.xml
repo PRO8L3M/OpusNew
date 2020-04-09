@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#f10b61</color>
+    <color name="colorPrimaryDark">#b70038</color>
+    <color name="colorAccent">#ff5b8e</color>
+
+    <!-- Colors to use on views -->
+
+</resources>
