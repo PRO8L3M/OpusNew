@@ -1,0 +1,80 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    tools:context="com.opus.ui.order.OrderFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/order_start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/order_end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/order_top_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <com.opus.common.customs.CustomEditText
+        android:id="@+id/order_gender_edit_text"
+        style="@style/OrderEditTextGender"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/order_end_guideline"
+        app:layout_constraintStart_toStartOf="@+id/order_start_guideline"
+        app:layout_constraintTop_toTopOf="@+id/order_top_guideline" />
+
+    <com.opus.common.customs.CustomEditText
+        android:id="@+id/order_height_edit_text"
+        style="@style/OrderEditTextHeight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium_16dp"
+        app:layout_constraintEnd_toStartOf="@+id/order_end_guideline"
+        app:layout_constraintStart_toStartOf="@+id/order_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/order_gender_edit_text" />
+
+    <com.opus.common.customs.CustomEditText
+        android:id="@+id/order_weight_edit_text"
+        style="@style/OrderEditTextWeight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium_16dp"
+        app:layout_constraintEnd_toStartOf="@+id/order_end_guideline"
+        app:layout_constraintStart_toStartOf="@+id/order_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/order_height_edit_text" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/order_create_order_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create"
+        app:layout_constraintEnd_toStartOf="@+id/order_end_guideline"
+        app:layout_constraintStart_toStartOf="@+id/order_start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/order_weight_edit_text" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/order_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_small_8dp"
+        android:layout_marginEnd="@dimen/margin_small_8dp"
+        android:layout_marginTop="@dimen/margin_small_8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/order_create_order_button" />
+</androidx.constraintlayout.widget.ConstraintLayout>

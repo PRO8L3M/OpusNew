@@ -4,5 +4,8 @@
     <dimen name="margin_medium_16dp">16dp</dimen>
     <dimen name="margin_large_32dp">32dp</dimen>
     <dimen name="margin_large_64dp">64dp</dimen>
+    <dimen name="corner_radius_10dp">10dp</dimen>
+    <dimen name="text_size_40sp">40sp</dimen>
+    <dimen name="text_size_25sp">25sp</dimen>
 
 </resources>

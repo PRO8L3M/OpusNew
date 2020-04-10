@@ -5,4 +5,24 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="CommonEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:maxLines">@integer/max_lines_1</item>
+        <item name="android:scrollHorizontally">true</item>
+    </style>
+
+    <style name="OrderEditTextGender" parent="CommonEditText">
+        <item name="android:inputType">text</item>
+        <item name="android:hint">Gender</item>
+    </style>
+
+    <style name="OrderEditTextHeight" parent="CommonEditText">
+        <item name="android:inputType">number</item>
+        <item name="android:hint">Height in cm</item>
+    </style>
+
+    <style name="OrderEditTextWeight" parent="CommonEditText">
+        <item name="android:inputType">number</item>
+        <item name="android:hint">Weight in kg</item>
+    </style>
+
 </resources>

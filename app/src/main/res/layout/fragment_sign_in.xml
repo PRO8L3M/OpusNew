@@ -1,13 +1,111 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.opus.ui.login.signIn.SignInFragment">
+    android:background="@android:color/white"
+    android:focusableInTouchMode="true">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/sign_in_guideline_start"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.1" />
 
-</FrameLayout>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/sign_in_guideline_end"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/sign_in_guideline_top"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/sign_in_guideline_bottom"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/sign_in_guideline_middle"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/sign_in_text_view_create_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/opus_font"
+        android:text="@string/sign_in_opus_logo"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/text_size_40sp"
+        app:layout_constraintEnd_toStartOf="@+id/sign_in_guideline_end"
+        app:layout_constraintStart_toStartOf="@+id/sign_in_guideline_start"
+        app:layout_constraintTop_toTopOf="@+id/sign_in_guideline_top" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sign_in_email_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/sign_in_guideline_end"
+        app:layout_constraintStart_toStartOf="@id/sign_in_guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/sign_in_guideline_middle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sign_in_email_input_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/login_email_hint"
+            android:inputType="textEmailAddress"
+            android:maxLines="@integer/max_lines_1"
+            android:scrollHorizontally="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/sign_in_password_input_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium_16dp"
+        app:hintEnabled="true"
+        app:layout_constraintEnd_toStartOf="@id/sign_in_guideline_end"
+        app:layout_constraintStart_toStartOf="@id/sign_in_guideline_start"
+        app:layout_constraintTop_toBottomOf="@id/sign_in_email_input_layout"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/colorPrimary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/sign_in_password_input_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="@string/login_password_hint"
+            android:inputType="textPassword"
+            android:maxLines="@integer/max_lines_1"
+            android:scrollHorizontally="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_medium_16dp"
+        android:background="@drawable/login_button_shape"
+        android:text="@string/sign_in_button"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/sign_in_guideline_end"
+        app:layout_constraintStart_toStartOf="@+id/sign_in_guideline_start"
+        app:layout_constraintTop_toBottomOf="@+id/sign_in_password_input_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

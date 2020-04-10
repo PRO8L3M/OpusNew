@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     kotlinOptions {
@@ -10,7 +11,6 @@ android {
     compileSdkVersion Versions.compileSDK
     buildToolsVersion Versions.buildToolsVersion
     defaultConfig {
-        applicationId ApplicationID.id
         minSdkVersion Versions.minSDK
         targetSdkVersion Versions.targetSDK
         versionCode Releases.versionCode
@@ -42,7 +42,6 @@ dependencies {
     implementation Libraries.navigationFragmentKtx
     implementation Libraries.navigationKtx
 
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     debugImplementation Libraries.leakCanary
 
     implementation Libraries.material
@@ -63,6 +62,11 @@ dependencies {
     implementation Libraries.lifecycleViewmodel
 
     implementation Libraries.timber
+
+    implementation Libraries.firebase
+    implementation Libraries.firebaseDatabase
+    implementation Libraries.firebaseAuth
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
 
     //Testing
     testImplementation Libraries.coroutiensTest

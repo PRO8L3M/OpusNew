@@ -5,5 +5,5 @@
     <color name="colorAccent">#ff5b8e</color>
 
     <!-- Colors to use on views -->
-
+    <color name="ic_launcher_background">@color/colorPrimary</color>
 </resources>

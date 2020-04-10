@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">Opus</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="sign_in_button">Sign In</string>
+    <string name="sign_in_opus_logo">Opus</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="sign_up_create_account">Create account</string>
+    <string name="sign_up_button">Sign Up</string>
 </resources>
