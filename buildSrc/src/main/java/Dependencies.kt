@@ -16,7 +16,7 @@ object Versions {
 
     val navigation = "2.3.0-alpha01"
     val appCompat = "1.1.0"
-    val material = "1.1.0"
+    val material = "1.2.0-alpha06"
     val core_ktx = "1.2.0"
     val constraint = "1.1.3"
 

@@ -3,7 +3,8 @@
     android:id="@+id/login_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:transitionName="shared_element"
+    android:background="@color/sign_up_background"
     android:focusableInTouchMode="true">
 
     <androidx.constraintlayout.widget.Guideline

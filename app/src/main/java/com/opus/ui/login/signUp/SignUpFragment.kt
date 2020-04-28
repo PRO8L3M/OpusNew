@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialContainerTransform
+import com.google.firebase.auth.AuthResult
 import com.opus.common.BaseFragment
-import com.opus.data.entity.FirebaseState
 import com.opus.data.entity.UserCredentials
 import com.opus.ext.snackBar
 import com.opus.mobile.R
@@ -38,6 +39,12 @@ class SignUpFragment : BaseFragment() {
         setUpButtonListeners()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        sharedElementEnterTransition = MaterialContainerTransform()
+    }
+
     private fun showLoginState(text: String) {
         snackBar(text, duration = Snackbar.LENGTH_LONG)
     }
@@ -51,11 +58,7 @@ class SignUpFragment : BaseFragment() {
         }
     }
 
-    private fun onSuccess(firebaseState: FirebaseState) = showLoginState(firebaseState.resultMessage)
+    private fun onSuccess(authResult: AuthResult) = showLoginState("Account created. Check your email: " + authResult.user?.email)
 
     private fun onFailure(exception: Exception) = showLoginState(exception.localizedMessage ?: "Error occurred")
-
-    companion object {
-        fun newInstance() = SignUpFragment()
-    }
 }

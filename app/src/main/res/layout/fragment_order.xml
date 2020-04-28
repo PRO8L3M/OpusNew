@@ -65,16 +65,35 @@
         app:layout_constraintStart_toStartOf="@+id/order_start_guideline"
         app:layout_constraintTop_toBottomOf="@+id/order_weight_edit_text" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/order_recycler_view"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/order_coordinator_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/margin_small_8dp"
-        android:layout_marginEnd="@dimen/margin_small_8dp"
-        android:layout_marginTop="@dimen/margin_small_8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/order_create_order_button" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/order_bottom_bar"
+            style="@style/Widget.MaterialComponents.BottomAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:backgroundTint="@color/bottom_bar_background"
+            app:hideOnScroll="true" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/order_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/black"
+            android:transitionName="shared_element_fab"
+            app:layout_anchor="@id/order_bottom_bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/order_end_guideline"
+            app:layout_constraintStart_toStartOf="@+id/order_end_guideline"
+            app:srcCompat="@drawable/ic_add_white" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

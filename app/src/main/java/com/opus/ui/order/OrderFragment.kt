@@ -1,25 +1,24 @@
 package com.opus.ui.order
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.transition.Hold
+import com.opus.common.BaseFragment
 import com.opus.mobile.R
-import kotlinx.android.synthetic.main.fragment_order.order_create_order_button
-import kotlinx.android.synthetic.main.fragment_order.order_gender_edit_text
-import kotlinx.android.synthetic.main.fragment_order.order_height_edit_text
-import kotlinx.android.synthetic.main.fragment_order.order_weight_edit_text
+import kotlinx.android.synthetic.main.fragment_order.order_fab
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class OrderFragment : Fragment() {
-
-    private val viewModel: OrderViewModel by viewModel()
+class OrderFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
 
         return inflater.inflate(R.layout.fragment_order, container, false)
     }
@@ -27,14 +26,16 @@ class OrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        order_create_order_button.setOnClickListener {
-            val gender = order_gender_edit_text.text.toString()
-            val height = order_height_edit_text.text.toString()
-            val weight = order_weight_edit_text.text.toString()
-            val order = Order(gender, height.toInt(), weight.toInt())
-            createOrder(order)
+        exitTransition = Hold()
+
+        order_fab.setOnClickListener {
+            val extras = FragmentNavigatorExtras(order_fab to "shared_element_end")
+            findNavController().navigate(
+                R.id.action_orderFragment_to_newOrderFragment,
+                null,
+                null,
+                extras
+            )
         }
     }
-
-    private fun createOrder(order: Order) = viewModel.createOrder(order)
 }

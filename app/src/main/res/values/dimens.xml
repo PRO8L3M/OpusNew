@@ -6,6 +6,9 @@
     <dimen name="margin_large_64dp">64dp</dimen>
     <dimen name="corner_radius_10dp">10dp</dimen>
     <dimen name="text_size_40sp">40sp</dimen>
+    <dimen name="text_size_35sp">35sp</dimen>
     <dimen name="text_size_25sp">25sp</dimen>
+    <dimen name="margin_small_4dp">4dp</dimen>
+    <dimen name="padding_medium_16dp">16dp</dimen>
 
 </resources>

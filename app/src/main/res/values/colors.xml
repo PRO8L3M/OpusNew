@@ -3,7 +3,13 @@
     <color name="colorPrimary">#f10b61</color>
     <color name="colorPrimaryDark">#b70038</color>
     <color name="colorAccent">#ff5b8e</color>
+    <color name="blue">#1C56DA</color>
+    <color name="lightGray">#F7F7F7</color>
 
     <!-- Colors to use on views -->
     <color name="ic_launcher_background">@color/colorPrimary</color>
+    <color name="sign_in_create_account">@color/blue</color>
+    <color name="bottom_bar_background">@color/colorPrimary</color>
+    <color name="new_order_background">@color/lightGray</color>
+    <color name="sign_up_background">@color/lightGray</color>
 </resources>

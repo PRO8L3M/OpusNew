@@ -1,5 +1,6 @@
 package com.opus.data.entity
 
+import com.google.firebase.auth.AuthResult
 import java.lang.Exception
 
 sealed class FirebaseResult <out T> {
@@ -14,4 +15,4 @@ inline fun <T> safeCall(call: (() -> T)): FirebaseResult<T> =
         FirebaseResult.Failure(exception)
     }
 
-fun FirebaseState.checkIsEmailVerified(): FirebaseState = if (authResult.user?.isEmailVerified == true) this else throw Exception("Email is not verified")
+fun AuthResult.checkIsEmailVerified(): AuthResult = if (user?.isEmailVerified == true) this else throw Exception("Email is not verified")
