@@ -5,7 +5,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.opus.data.FirebaseImpl
 import com.opus.data.repository.LoginRepository
 import com.opus.ui.login.LoginViewModel
-import com.opus.ui.order.OrderViewModel
+import com.opus.ui.home.OrderViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module

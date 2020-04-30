@@ -50,6 +50,10 @@ object Versions {
     val firebase = "17.2.3"
     val firebaseDatabase = "19.2.1"
     val firebaseAuth = "19.3.0"
+
+    val gradleVersionsPlugin = "0.28.0"
+
+    val coroutinesPlayServices = "1.1.1"
 }
 
 object Libraries {
@@ -101,4 +105,9 @@ object Libraries {
     val firebase = "com.google.firebase:firebase-analytics:${Versions.firebase}"
     val firebaseDatabase = "com.google.firebase:firebase-database-ktx:${Versions.firebaseDatabase}"
     val firebaseAuth = "com.google.firebase:firebase-auth:${Versions.firebaseAuth}"
+
+    val gradleVersionPlugin = "com.github.ben-manes:gradle-versions-plugin:${Versions.gradleVersionsPlugin}"
+
+    val coroutinesPlayServices = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:${Versions.coroutinesPlayServices}"
+
 }

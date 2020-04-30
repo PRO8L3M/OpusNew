@@ -1,4 +1,4 @@
-package com.opus.ui.order
+package com.opus.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

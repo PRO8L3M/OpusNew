@@ -21,9 +21,11 @@ class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
     val accountLogin = _accountLogin
 
     fun signIn(userCredentials: UserCredentials) {
-        viewModelScope.launch{
-            val result = withContext(Dispatchers.IO) { repository.signIn(userCredentials) }
-            _accountLogin.value = result
+        viewModelScope.launch {
+            _accountLogin.postValue(FirebaseResult.Loading)
+            val result =
+                withContext(Dispatchers.IO) { repository.signIn(userCredentials) }
+            _accountLogin.postValue(result)
         }
     }
 
@@ -43,3 +45,23 @@ class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
         }
     }
 }
+
+/*
+private fun loadTicket(token: String) = liveData {
+    emit(Event(Result.Loading()))
+
+    val response = repository.getTicket(token)
+
+    when (response) {
+        is Result.Success -> {
+            setTicketTimeStampList(response)
+            response.data.ticketDetails.customerInfo.apply {
+                setupMapLocalizationComponents(getEngineerLocalization(), getCustomerLocalization())
+            }
+        }
+        else -> setupMapLocalizationComponents(null, null)
+    }
+    withContext(Dispatchers.Main) {
+        emit(Event(response))
+    }
+}*/

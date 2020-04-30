@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.Hold
 import com.google.firebase.auth.AuthResult
 import com.opus.common.BaseFragment
@@ -23,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_sign_in.sign_in_button_forgot_pas
 import kotlinx.android.synthetic.main.fragment_sign_in.sign_in_email_input_edit_text
 import kotlinx.android.synthetic.main.fragment_sign_in.sign_in_password_input_edit_text
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 class SignInFragment : BaseFragment() {
 
@@ -44,46 +44,10 @@ class SignInFragment : BaseFragment() {
 
         viewModel.accountLogin.observe(
             viewLifecycleOwner,
-            FirebaseObserver(::onSuccess, ::onFailure)
+            FirebaseObserver(::onSuccess, ::onFailure, ::onLoading)
         )
 
         setUpButtonsListeners()
-
-       /* fab.setOnClickListener {
-
-            makeTransition(fab, black_square, login_layout)
-
-            fab.visibility = View.GONE
-            black_square.visibility = View.VISIBLE
-        }
-
-        black_square.setOnClickListener {
-            makeTransition(black_square, fab, login_layout)
-
-            black_square.visibility = View.GONE
-            fab.visibility = View.VISIBLE
-        }*/
-    }
-
-/*    private fun makeTransition(
-        startView: View,
-        endView: View,
-        rootView: ViewGroup,
-        scrimColor: Int = Color.TRANSPARENT,
-        pathMotion: PathMotion = MaterialArcMotion()
-    ) {
-        val transform = MaterialContainerTransform().apply {
-            this.startView = startView
-            this.endView = endView
-            this.pathMotion = pathMotion
-            this.scrimColor = scrimColor
-        }
-        TransitionManager.beginDelayedTransition(rootView, transform)
-    }*/
-
-
-    private fun showLoginState(text: String) {
-        snackBar(text, duration = Snackbar.LENGTH_LONG)
     }
 
     private fun showForgotPasswordAlertDialog() {
@@ -93,6 +57,12 @@ class SignInFragment : BaseFragment() {
 
     private fun setUpButtonsListeners() {
         sign_in_button.setOnClickListener {
+            handleSignInButtonState(false)
+            /* todo LEAK while providing password we switch passwordToggle from Invisible to Visible state and navigate to another Fragment, then the leak occurs
+                    example: We provided email. Nextly, while providing password, after 2 chars we switched `passwordToggle` to Visible state and provided rest of the password.
+                             After that we clicked Button `Sign In` and NavComponent brought us to another Fragment. Leak occurred after few seconds.
+                             If we provide entire password within one `passwordToggle` state everything is fine.
+            */
             val email = sign_in_email_input_edit_text.text.toString()
             val password = sign_in_password_input_edit_text.text.toString()
             val userCredentials = UserCredentials(email, password)
@@ -109,13 +79,25 @@ class SignInFragment : BaseFragment() {
         }
     }
 
+    private fun handleSignInButtonState(isActive: Boolean) {
+        fun switchButtonState(isActive: Boolean) = with(sign_in_button) {
+            isActivated = isActive
+            isClickable = isActive
+        }
+        if (isActive) switchButtonState(true) else switchButtonState(false)
+    }
+
     private fun onSuccess(authResult: AuthResult) {
-        showLoginState("Welcome " + authResult.user?.email)
+        handleSignInButtonState(true)
         navigateTo(R.id.action_signInFragment_to_orderFragment)
     }
 
     private fun onFailure(exception: Exception) {
-        showLoginState(exception.localizedMessage ?: "Error occurred")
+        snackBar(exception.localizedMessage ?: "Error occurred")
+    }
+
+    private fun onLoading() {
+        Timber.i("aaa onLoading")
     }
 
     companion object {

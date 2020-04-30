@@ -1,4 +1,4 @@
-package com.opus.ui.order
+package com.opus.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +10,8 @@ import com.google.android.material.transition.Hold
 import com.opus.common.BaseFragment
 import com.opus.mobile.R
 import kotlinx.android.synthetic.main.fragment_order.order_fab
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class OrderFragment : BaseFragment() {
+class HomeFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

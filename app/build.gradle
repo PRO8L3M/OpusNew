@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: "com.github.ben-manes.versions"
+
 
 android {
     kotlinOptions {
@@ -24,7 +26,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+}
 
+// to check libraries latest versions: `gradlew -p app dependencyUpdates`
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath Libraries.gradleVersionPlugin
+    }
 }
 
 dependencies {
@@ -42,7 +54,6 @@ dependencies {
     implementation Libraries.navigationFragmentKtx
     implementation Libraries.navigationKtx
 
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     debugImplementation Libraries.leakCanary
 
     implementation Libraries.material
@@ -67,7 +78,7 @@ dependencies {
     implementation Libraries.firebase
     implementation Libraries.firebaseDatabase
     implementation Libraries.firebaseAuth
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'
+    implementation Libraries.coroutinesPlayServices
 
     //Testing
     testImplementation Libraries.coroutiensTest

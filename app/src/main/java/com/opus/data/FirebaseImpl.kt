@@ -4,7 +4,6 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.opus.data.entity.UserCredentials
 import kotlinx.coroutines.tasks.await
-import timber.log.Timber
 
 class FirebaseImpl(private val firebaseAuth: FirebaseAuth) {
 
@@ -17,7 +16,7 @@ class FirebaseImpl(private val firebaseAuth: FirebaseAuth) {
                 if (it.isSuccessful) firebaseAuth.currentUser?.sendEmailVerification()
             }.await()
 
-    suspend fun signIn(userCredentials: UserCredentials) =
+    suspend fun signIn(userCredentials: UserCredentials): AuthResult =
         firebaseAuth.signInWithEmailAndPassword(userCredentials.email, userCredentials.password)
             .await()
 

@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_sign_up.sign_up_button
 import kotlinx.android.synthetic.main.fragment_sign_up.sign_up_email_input_edit_text
 import kotlinx.android.synthetic.main.fragment_sign_up.sign_up_password_input_edit_text
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 class SignUpFragment : BaseFragment() {
 
@@ -34,7 +35,7 @@ class SignUpFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.accountCreation.observe(viewLifecycleOwner, FirebaseObserver(::onSuccess, ::onFailure))
+        viewModel.accountCreation.observe(viewLifecycleOwner, FirebaseObserver(::onSuccess, ::onFailure, ::onLoading))
 
         setUpButtonListeners()
     }
@@ -61,4 +62,8 @@ class SignUpFragment : BaseFragment() {
     private fun onSuccess(authResult: AuthResult) = showLoginState("Account created. Check your email: " + authResult.user?.email)
 
     private fun onFailure(exception: Exception) = showLoginState(exception.localizedMessage ?: "Error occurred")
+
+    private fun onLoading() {
+
+    }
 }
