@@ -1,5 +1,6 @@
 package com.opus.ui.login
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.AuthResult
@@ -11,6 +12,7 @@ import com.opus.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
 
@@ -20,12 +22,16 @@ class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
     private val _accountLogin: SingleLiveEvent<FirebaseResult<AuthResult>> by lazy { SingleLiveEvent<FirebaseResult<AuthResult>>() }
     val accountLogin = _accountLogin
 
+    private val _resetPassword: MutableLiveData<FirebaseResult<Void>> by lazy { MutableLiveData<FirebaseResult<Void>>() }
+    val resetPassword = _resetPassword
+
+
     fun signIn(userCredentials: UserCredentials) {
         viewModelScope.launch {
-            _accountLogin.postValue(FirebaseResult.Loading)
+            _accountLogin.value = FirebaseResult.Loading
             val result =
                 withContext(Dispatchers.IO) { repository.signIn(userCredentials) }
-            _accountLogin.postValue(result)
+            _accountLogin.value = result
         }
     }
 
@@ -37,31 +43,13 @@ class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
     }
 
     fun resetPassword(email: String) {
+        if (!email.isEmail()) return
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                if (email.isEmail()) repository.resetPassword(email)
-
+            _resetPassword.value = FirebaseResult.Loading
+           val result = withContext(Dispatchers.IO) {
+                repository.resetPassword(email)
             }
+            _resetPassword.value = result
         }
     }
 }
-
-/*
-private fun loadTicket(token: String) = liveData {
-    emit(Event(Result.Loading()))
-
-    val response = repository.getTicket(token)
-
-    when (response) {
-        is Result.Success -> {
-            setTicketTimeStampList(response)
-            response.data.ticketDetails.customerInfo.apply {
-                setupMapLocalizationComponents(getEngineerLocalization(), getCustomerLocalization())
-            }
-        }
-        else -> setupMapLocalizationComponents(null, null)
-    }
-    withContext(Dispatchers.Main) {
-        emit(Event(response))
-    }
-}*/

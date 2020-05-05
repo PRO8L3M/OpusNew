@@ -9,7 +9,7 @@ class FirebaseObserver<T : Any>(
     private val onLoading: () -> Unit
 ) : Observer<FirebaseResult<T>> {
 
-    override fun onChanged(result: FirebaseResult<T>?) {
+    override fun onChanged(result: FirebaseResult<T>) {
         when (result) {
             is FirebaseResult.Success -> onSuccess(result.data)
             is FirebaseResult.Failure -> onFailure(result.exception)

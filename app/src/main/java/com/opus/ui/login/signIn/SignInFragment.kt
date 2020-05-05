@@ -27,6 +27,7 @@ import timber.log.Timber
 class SignInFragment : BaseFragment() {
 
     private val viewModel: LoginViewModel by sharedViewModel()
+    private val hold = Hold()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,14 +41,14 @@ class SignInFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        exitTransition = Hold()
+        exitTransition = hold
 
         viewModel.accountLogin.observe(
             viewLifecycleOwner,
             FirebaseObserver(::onSuccess, ::onFailure, ::onLoading)
         )
 
-        setUpButtonsListeners()
+        setUpButtonListeners()
     }
 
     private fun showForgotPasswordAlertDialog() {
@@ -55,7 +56,7 @@ class SignInFragment : BaseFragment() {
         alertFragment.show(parentFragmentManager, FORGOT_PASSWORD_ALERT_TAG)
     }
 
-    private fun setUpButtonsListeners() {
+    private fun setUpButtonListeners() {
         sign_in_button.setOnClickListener {
             handleSignInButtonState(false)
             /* todo LEAK while providing password we switch passwordToggle from Invisible to Visible state and navigate to another Fragment, then the leak occurs
@@ -90,10 +91,13 @@ class SignInFragment : BaseFragment() {
     private fun onSuccess(authResult: AuthResult) {
         handleSignInButtonState(true)
         navigateTo(R.id.action_signInFragment_to_orderFragment)
+        Timber.i("aaa onSuccess")
     }
 
     private fun onFailure(exception: Exception) {
-        snackBar(exception.localizedMessage ?: "Error occurred")
+        handleSignInButtonState(true)
+        snackBar(exception.localizedMessage ?: UNKNOWN_ERROR)
+        Timber.i("aaa onFailure")
     }
 
     private fun onLoading() {
@@ -102,5 +106,6 @@ class SignInFragment : BaseFragment() {
 
     companion object {
         const val FORGOT_PASSWORD_ALERT_TAG = "forgot_password_alert_tag"
+        const val UNKNOWN_ERROR = "Error occurred"
     }
 }

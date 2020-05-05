@@ -63,7 +63,5 @@ class SignUpFragment : BaseFragment() {
 
     private fun onFailure(exception: Exception) = showLoginState(exception.localizedMessage ?: "Error occurred")
 
-    private fun onLoading() {
-
-    }
+    private fun onLoading() {}
 }
