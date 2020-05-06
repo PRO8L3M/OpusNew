@@ -54,6 +54,7 @@ dependencies {
     implementation Libraries.navigationFragmentKtx
     implementation Libraries.navigationKtx
 
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     debugImplementation Libraries.leakCanary
 
     implementation Libraries.material

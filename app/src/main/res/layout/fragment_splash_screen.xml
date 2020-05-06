@@ -1,0 +1,42 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.opus.ui.SplashScreenFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        app:layout_constraintGuide_percent="0.15"
+        android:orientation="horizontal"
+        android:id="@+id/splash_screen_guideline_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        app:layout_constraintGuide_percent="0.8"
+        android:orientation="vertical"
+        android:id="@+id/splash_screen_guideline_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        app:layout_constraintGuide_percent="0.2"
+        android:orientation="vertical"
+        android:id="@+id/splash_screen_guideline_end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/splash_screen_opus_logo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:fontFamily="@font/opus_font"
+        android:textSize="@dimen/text_size_60sp"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintEnd_toStartOf="@+id/splash_screen_guideline_start"
+        app:layout_constraintStart_toStartOf="@+id/splash_screen_guideline_end"
+        app:layout_constraintTop_toTopOf="@+id/splash_screen_guideline_top" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

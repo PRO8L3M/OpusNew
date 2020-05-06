@@ -1,6 +1,7 @@
 package com.opus.data.entity
 
 import com.google.firebase.auth.AuthResult
+import com.opus.common.EMAIL_NOT_VERIFIED
 
 sealed class FirebaseResult <out T> {
     object Loading : FirebaseResult<Nothing>()
@@ -15,5 +16,5 @@ inline fun <T> safeCall(call: (() -> T)): FirebaseResult<T> =
         FirebaseResult.Failure(exception)
     }
 
-fun AuthResult.checkIsEmailVerified(): AuthResult = if (user?.isEmailVerified == true) this else throw Exception("Email is not verified")
-
+fun AuthResult.checkIsEmailVerified(): AuthResult =
+    if (user?.isEmailVerified == true) this else throw Exception(EMAIL_NOT_VERIFIED)

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:transitionName="shared_element_end"
+    android:transitionName="shared_element"
     android:background="@color/new_order_background"
     tools:context="com.opus.ui.newOrder.NewOrderFragment">
 

@@ -12,4 +12,5 @@ class ProgressButton @JvmOverloads constructor(context: Context, attrs: Attribut
     init {
         View.inflate(context, R.layout.progress_button, null)
     }
+
 }

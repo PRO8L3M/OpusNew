@@ -1,6 +1,5 @@
 package com.opus.ui.login
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.AuthResult
@@ -12,7 +11,6 @@ import com.opus.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import timber.log.Timber
 
 class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
 
@@ -22,7 +20,7 @@ class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
     private val _accountLogin: SingleLiveEvent<FirebaseResult<AuthResult>> by lazy { SingleLiveEvent<FirebaseResult<AuthResult>>() }
     val accountLogin = _accountLogin
 
-    private val _resetPassword: MutableLiveData<FirebaseResult<Void>> by lazy { MutableLiveData<FirebaseResult<Void>>() }
+    private val _resetPassword: SingleLiveEvent<FirebaseResult<Void>> by lazy { SingleLiveEvent<FirebaseResult<Void>>() }
     val resetPassword = _resetPassword
 
 

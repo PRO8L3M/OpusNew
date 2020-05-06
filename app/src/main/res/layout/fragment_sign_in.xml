@@ -124,15 +124,6 @@
         app:layout_constraintStart_toStartOf="@+id/sign_in_guideline_start"
         app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />
 
-    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:transitionName="shared_element_fab"
-        app:layout_constraintEnd_toStartOf="@+id/sign_in_button_forgot_password"
-        app:layout_constraintStart_toEndOf="@+id/sign_in_button_create_account"
-        app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />-->
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/sign_in_button_forgot_password"
         style="@style/Widget.MaterialComponents.Button.TextButton"
@@ -146,5 +137,14 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@+id/sign_in_guideline_end"
         app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />
+
+    <com.opus.common.customs.ProgressButton
+        android:id="@+id/progress_btn"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toBottomOf="@id/sign_in_button_create_account"
+        app:layout_constraintStart_toEndOf="@id/sign_in_guideline_start"
+        app:layout_constraintEnd_toEndOf="@id/sign_in_guideline_end" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

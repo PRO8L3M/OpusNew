@@ -27,44 +27,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.05" />
 
-    <com.opus.common.customs.CustomEditText
-        android:id="@+id/order_gender_edit_text"
-        style="@style/OrderEditTextGender"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/order_end_guideline"
-        app:layout_constraintStart_toStartOf="@+id/order_start_guideline"
-        app:layout_constraintTop_toTopOf="@+id/order_top_guideline" />
-
-    <com.opus.common.customs.CustomEditText
-        android:id="@+id/order_height_edit_text"
-        style="@style/OrderEditTextHeight"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium_16dp"
-        app:layout_constraintEnd_toStartOf="@+id/order_end_guideline"
-        app:layout_constraintStart_toStartOf="@+id/order_start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/order_gender_edit_text" />
-
-    <com.opus.common.customs.CustomEditText
-        android:id="@+id/order_weight_edit_text"
-        style="@style/OrderEditTextWeight"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium_16dp"
-        app:layout_constraintEnd_toStartOf="@+id/order_end_guideline"
-        app:layout_constraintStart_toStartOf="@+id/order_start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/order_height_edit_text" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/order_create_order_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Create"
-        app:layout_constraintEnd_toStartOf="@+id/order_end_guideline"
-        app:layout_constraintStart_toStartOf="@+id/order_start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/order_weight_edit_text" />
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/order_coordinator_layout"
         android:layout_width="0dp"

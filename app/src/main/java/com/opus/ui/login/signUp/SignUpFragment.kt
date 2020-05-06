@@ -8,6 +8,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import com.google.firebase.auth.AuthResult
 import com.opus.common.BaseFragment
+import com.opus.common.UNKNOWN_ERROR
 import com.opus.data.entity.UserCredentials
 import com.opus.ext.snackBar
 import com.opus.mobile.R
@@ -22,6 +23,7 @@ import timber.log.Timber
 class SignUpFragment : BaseFragment() {
 
     private val viewModel: LoginViewModel by sharedViewModel()
+    private val materialContainerTransform by lazy { MaterialContainerTransform() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,11 +45,7 @@ class SignUpFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        sharedElementEnterTransition = MaterialContainerTransform()
-    }
-
-    private fun showLoginState(text: String) {
-        snackBar(text, duration = Snackbar.LENGTH_LONG)
+        sharedElementEnterTransition = materialContainerTransform
     }
 
     private fun setUpButtonListeners() {
@@ -59,9 +57,9 @@ class SignUpFragment : BaseFragment() {
         }
     }
 
-    private fun onSuccess(authResult: AuthResult) = showLoginState("Account created. Check your email: " + authResult.user?.email)
+    private fun onSuccess(authResult: AuthResult) = snackBar(resources.getString(R.string.sign_up_create_account_success, authResult.user?.email))
 
-    private fun onFailure(exception: Exception) = showLoginState(exception.localizedMessage ?: "Error occurred")
+    private fun onFailure(exception: Exception) = snackBar(exception.localizedMessage ?: UNKNOWN_ERROR)
 
-    private fun onLoading() {}
+    private fun onLoading() { }
 }
