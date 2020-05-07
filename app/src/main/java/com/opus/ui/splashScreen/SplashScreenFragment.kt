@@ -1,8 +1,5 @@
-package com.opus.ui
+package com.opus.ui.splashScreen
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,11 +25,9 @@ class SplashScreenFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        run {
-            viewScope.launch {
-                delay(SPLASH_SCREEN_DURATION)
-                navigateTo(R.id.action_splashScreenFragment_to_signInFragment)
-            }
+        viewScope.launch {
+            delay(SPLASH_SCREEN_DURATION)
+            navigateTo(R.id.action_splashScreenFragment_to_signInFragment)
         }
     }
 }

@@ -5,6 +5,7 @@
     <color name="colorAccent">#ff5b8e</color>
     <color name="blue">#1C56DA</color>
     <color name="lightGray">#F7F7F7</color>
+    <color name="forestGreen">#0B6623</color>
 
     <!-- Colors to use on views -->
     <color name="ic_launcher_background">@color/colorPrimary</color>
@@ -12,4 +13,5 @@
     <color name="bottom_bar_background">@color/colorPrimary</color>
     <color name="new_order_background">@color/lightGray</color>
     <color name="sign_up_background">@color/lightGray</color>
+    <color name="sign_in_btn_text_success">@color/forestGreen</color>
 </resources>

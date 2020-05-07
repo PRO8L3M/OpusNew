@@ -24,4 +24,5 @@
     <string name="forgot_password_error_empty_field">Field cannot be empty</string>
     <string name="forgot_password_error_wrong_pattern">Wrong email pattern</string>
     <string name="forgot_password_reset_success">The reset password request has been sent. Check your email.</string>
+    <string name="progress_button_text_ok">@android:string/ok</string>
 </resources>

@@ -38,7 +38,7 @@
         tools:layout="@layout/fragment_new_order" />
     <fragment
         android:id="@+id/splashScreenFragment"
-        android:name="com.opus.ui.SplashScreenFragment"
+        android:name="com.opus.ui.splashScreen.SplashScreenFragment"
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_splash_screen" >
         <action

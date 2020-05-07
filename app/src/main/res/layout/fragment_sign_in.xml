@@ -97,17 +97,16 @@
         android:scrollHorizontally="true" />
 </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/sign_in_button"
+    <com.opus.common.customs.ProgressButton
+        android:id="@+id/progress_btn_sign_in"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_medium_16dp"
+        android:layout_margin="@dimen/margin_small_8dp"
         android:background="@drawable/login_button_shape"
-        android:text="@string/sign_in_button"
-        android:textAllCaps="false"
         app:layout_constraintEnd_toStartOf="@+id/sign_in_guideline_end"
         app:layout_constraintStart_toStartOf="@+id/sign_in_guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/sign_in_password_input_layout" />
+        app:layout_constraintTop_toBottomOf="@+id/sign_in_password_input_layout"
+        app:text="@string/sign_in_button"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/sign_in_button_create_account"
@@ -122,7 +121,7 @@
         android:textColor="@color/sign_in_create_account"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/sign_in_guideline_start"
-        app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />
+        app:layout_constraintTop_toBottomOf="@+id/progress_btn_sign_in" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/sign_in_button_forgot_password"
@@ -136,15 +135,6 @@
         android:textColor="@color/sign_in_create_account"
         android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@+id/sign_in_guideline_end"
-        app:layout_constraintTop_toBottomOf="@+id/sign_in_button" />
-
-    <com.opus.common.customs.ProgressButton
-        android:id="@+id/progress_btn"
-        android:layout_width="0dp"
-        android:layout_height="40dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintTop_toBottomOf="@id/sign_in_button_create_account"
-        app:layout_constraintStart_toEndOf="@id/sign_in_guideline_start"
-        app:layout_constraintEnd_toEndOf="@id/sign_in_guideline_end" />
+        app:layout_constraintTop_toBottomOf="@+id/progress_btn_sign_in" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

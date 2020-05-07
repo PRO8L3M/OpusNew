@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.opus.ui.SplashScreenFragment">
+    tools:context="com.opus.ui.splashScreen.SplashScreenFragment">
 
     <androidx.constraintlayout.widget.Guideline
         app:layout_constraintGuide_percent="0.15"

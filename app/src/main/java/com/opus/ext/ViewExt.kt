@@ -2,8 +2,12 @@ package com.opus.ext
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Parcelable
+import android.util.SparseArray
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.children
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -22,4 +26,14 @@ inline fun <reified T> RecyclerView.Adapter<*>.getAsyncListDiffer(noinline areIt
         override fun areContentsTheSame(oldItem: T, newItem: T) = oldItem == newItem
     }
     return AsyncListDiffer(this, diffUtilCallback)
+}
+
+fun ViewGroup.saveChildViewStates(): SparseArray<Parcelable> {
+    val childViewStates = SparseArray<Parcelable>()
+    children.forEach { child -> child.saveHierarchyState(childViewStates) }
+    return childViewStates
+}
+
+fun ViewGroup.restoreChildViewStates(childViewStates: SparseArray<Parcelable>) {
+    children.forEach { child -> child.restoreHierarchyState(childViewStates) }
 }

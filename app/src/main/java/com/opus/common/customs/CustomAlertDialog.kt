@@ -9,6 +9,7 @@ import com.opus.ext.EMPTY
 import com.opus.ext.isEmail
 import com.opus.mobile.R
 import com.opus.ui.login.LoginViewModel
+import com.opus.util.argument
 import kotlinx.android.synthetic.main.forgot_password_edit_text.forgot_password_button_negative
 import kotlinx.android.synthetic.main.forgot_password_edit_text.forgot_password_button_positive
 import kotlinx.android.synthetic.main.forgot_password_edit_text.forgot_password_edit_text_email
@@ -18,13 +19,10 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CustomAlertDialogFragment : DialogFragment() {
 
-    private lateinit var message: String
+    private var message: String by argument()
     private val viewModel: LoginViewModel by sharedViewModel()
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        arguments?.let {
-            message = it.getString(MESSAGE_KEY, String.EMPTY)
-        }
 
         return MaterialAlertDialogBuilder(requireContext())
             .setView(R.layout.forgot_password_edit_text)
@@ -38,36 +36,44 @@ class CustomAlertDialogFragment : DialogFragment() {
             with(alertDialog) {
                 forgot_password_message.text = message
                 forgot_password_button_positive.setOnClickListener {
-
-                    val providedEmail = forgot_password_edit_text_email.text.toString()
-                    val inputLayout = forgot_password_input_layout
-
-                    when {
-                        providedEmail.isBlank() -> inputLayout.error =
-                            resources.getString(R.string.forgot_password_error_empty_field)
-                        !providedEmail.isEmail() -> inputLayout.error =
-                            resources.getString(R.string.forgot_password_error_wrong_pattern)
-                        else -> inputLayout.error = null
-                    }
-
-                    if (inputLayout.error == null)  {
-                        viewModel.resetPassword(providedEmail)
-                        dismiss()
-                    }
+                    handlePositiveButtonClick(
+                        this
+                    )
                 }
-                forgot_password_button_negative.setOnClickListener { dismiss() }
+                forgot_password_button_negative.setOnClickListener {
+                    handleNegativeButtonClick(
+                        this
+                    )
+                }
             }
         }
     }
 
-    companion object {
-        private const val MESSAGE_KEY = "message_key"
+    private fun handlePositiveButtonClick(alertDialog: AlertDialog) {
+        with(alertDialog) {
+            val providedEmail = forgot_password_edit_text_email.text.toString()
+            val inputLayout = forgot_password_input_layout
 
-        fun newInstance(message: String) = CustomAlertDialogFragment().apply {
-            val args = Bundle().apply {
-                putString(MESSAGE_KEY, message)
+            when {
+                providedEmail.isBlank() -> inputLayout.error =
+                    resources.getString(R.string.forgot_password_error_empty_field)
+                !providedEmail.isEmail() -> inputLayout.error =
+                    resources.getString(R.string.forgot_password_error_wrong_pattern)
+                else -> inputLayout.error = null
             }
-            arguments = args
+
+            if (inputLayout.error == null) {
+                viewModel.resetPassword(providedEmail)
+                dismiss()
+            }
+        }
+    }
+
+    private fun handleNegativeButtonClick(alertDialog: AlertDialog) = alertDialog.dismiss()
+
+    companion object {
+        fun newInstance(message: String) = CustomAlertDialogFragment().apply {
+            this.message = message
         }
     }
 }

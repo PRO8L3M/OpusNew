@@ -16,6 +16,7 @@ import com.opus.common.DOUBLE_BACK_PRESSED_DURATION
 import com.opus.common.SHARED_ELEMENT
 import com.opus.common.UNKNOWN_ERROR
 import com.opus.common.customs.CustomAlertDialogFragment
+import com.opus.common.customs.LoadingResult
 import com.opus.data.entity.FirebaseResult
 import com.opus.data.entity.UserCredentials
 import com.opus.ext.navigateTo
@@ -24,7 +25,7 @@ import com.opus.ext.toast
 import com.opus.mobile.R
 import com.opus.ui.login.LoginViewModel
 import com.opus.util.FirebaseObserver
-import kotlinx.android.synthetic.main.fragment_sign_in.sign_in_button
+import kotlinx.android.synthetic.main.fragment_sign_in.progress_btn_sign_in
 import kotlinx.android.synthetic.main.fragment_sign_in.sign_in_button_create_account
 import kotlinx.android.synthetic.main.fragment_sign_in.sign_in_button_forgot_password
 import kotlinx.android.synthetic.main.fragment_sign_in.sign_in_email_input_edit_text
@@ -32,7 +33,6 @@ import kotlinx.android.synthetic.main.fragment_sign_in.sign_in_password_input_ed
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import timber.log.Timber
 
 class SignInFragment : BaseFragment() {
 
@@ -79,7 +79,7 @@ class SignInFragment : BaseFragment() {
     }
 
     private fun setUpButtonListeners() {
-        sign_in_button.setOnClickListener {
+        progress_btn_sign_in.setOnClickListener {
             handleSignInButtonState(false)
             /* todo LEAK while providing password we switch passwordToggle from Invisible to Visible state and navigate to another Fragment, then the leak occurs
                     example: We provided email. Nextly, while providing password, after 2 chars we switched `passwordToggle` to Visible state and provided rest of the password.
@@ -103,7 +103,7 @@ class SignInFragment : BaseFragment() {
     }
 
     private fun handleSignInButtonState(isActive: Boolean) {
-        fun switchButtonState(isActive: Boolean) = with(sign_in_button) {
+        fun switchButtonState(isActive: Boolean) = with(progress_btn_sign_in) {
             isActivated = isActive
             isClickable = isActive
         }
@@ -111,17 +111,19 @@ class SignInFragment : BaseFragment() {
     }
 
     private fun onSuccess(authResult: AuthResult) {
-        handleSignInButtonState(true)
         navigateTo(R.id.action_signInFragment_to_orderFragment)
+        handleSignInButtonState(true)
+        progress_btn_sign_in.deactivateProgressIndicator(LoadingResult.SUCCESS)
     }
 
     private fun onFailure(exception: Exception) {
         handleSignInButtonState(true)
         snackBar(exception.localizedMessage ?: UNKNOWN_ERROR)
+        progress_btn_sign_in.deactivateProgressIndicator(LoadingResult.FAILURE)
     }
 
     private fun onLoading() {
-        Timber.i("aaa onLoading")
+        progress_btn_sign_in.activateLoadingState()
     }
 
     private fun onDoubleBackPressed() {
@@ -136,6 +138,12 @@ class SignInFragment : BaseFragment() {
                 isDoubleClicked = false
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+      //  progress_btn_sign_in.deactivateProgressIndicator()
     }
 
     companion object {
