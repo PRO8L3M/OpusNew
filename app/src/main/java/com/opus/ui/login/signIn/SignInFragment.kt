@@ -19,17 +19,14 @@ import com.opus.common.customs.CustomAlertDialogFragment
 import com.opus.common.customs.LoadingResult
 import com.opus.data.entity.FirebaseResult
 import com.opus.data.entity.UserCredentials
+import com.opus.ext.dataBinding
 import com.opus.ext.navigateTo
 import com.opus.ext.snackBar
 import com.opus.ext.toast
 import com.opus.mobile.R
+import com.opus.mobile.databinding.FragmentSignInBinding
 import com.opus.ui.login.LoginViewModel
 import com.opus.util.FirebaseObserver
-import kotlinx.android.synthetic.main.fragment_sign_in.progress_btn_sign_in
-import kotlinx.android.synthetic.main.fragment_sign_in.sign_in_button_create_account
-import kotlinx.android.synthetic.main.fragment_sign_in.sign_in_button_forgot_password
-import kotlinx.android.synthetic.main.fragment_sign_in.sign_in_email_input_edit_text
-import kotlinx.android.synthetic.main.fragment_sign_in.sign_in_password_input_edit_text
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -37,6 +34,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 class SignInFragment : BaseFragment() {
 
     private val viewModel: LoginViewModel by sharedViewModel()
+    private val binding: FragmentSignInBinding by dataBinding()
     private val hold = Hold()
     private var isDoubleClicked = false
 
@@ -79,31 +77,31 @@ class SignInFragment : BaseFragment() {
     }
 
     private fun setUpButtonListeners() {
-        progress_btn_sign_in.setOnClickListener {
+        binding.progressBtnSignIn.setOnClickListener {
             handleSignInButtonState(false)
             /* todo LEAK while providing password we switch passwordToggle from Invisible to Visible state and navigate to another Fragment, then the leak occurs
                     example: We provided email. Nextly, while providing password, after 2 chars we switched `passwordToggle` to Visible state and provided rest of the password.
                              After that we clicked Button `Sign In` and NavComponent brought us to another Fragment. Leak occurred after few seconds.
                              If we provide entire password within one `passwordToggle` state everything is fine.
             */
-            val email = sign_in_email_input_edit_text.text.toString()
-            val password = sign_in_password_input_edit_text.text.toString()
+            val email = binding.signInEmailInputEditText.text.toString()
+            val password = binding.signInPasswordInputEditText.text.toString()
             val userCredentials = UserCredentials(email, password)
             viewModel.signIn(userCredentials)
         }
 
-        sign_in_button_create_account.setOnClickListener {
+        binding.signInButtonCreateAccount.setOnClickListener {
             val extras = FragmentNavigatorExtras(it to SHARED_ELEMENT)
             findNavController().navigate(R.id.action_signInFragment_to_signUpFragment, null, null, extras)
         }
 
-        sign_in_button_forgot_password.setOnClickListener {
+        binding.signInButtonForgotPassword.setOnClickListener {
             showForgotPasswordAlertDialog()
         }
     }
 
     private fun handleSignInButtonState(isActive: Boolean) {
-        fun switchButtonState(isActive: Boolean) = with(progress_btn_sign_in) {
+        fun switchButtonState(isActive: Boolean) = with(binding.progressBtnSignIn) {
             isActivated = isActive
             isClickable = isActive
         }
@@ -113,17 +111,17 @@ class SignInFragment : BaseFragment() {
     private fun onSuccess(authResult: AuthResult) {
         navigateTo(R.id.action_signInFragment_to_orderFragment)
         handleSignInButtonState(true)
-        progress_btn_sign_in.deactivateProgressIndicator(LoadingResult.SUCCESS)
+        binding.progressBtnSignIn.deactivateProgressIndicator(LoadingResult.SUCCESS)
     }
 
     private fun onFailure(exception: Exception) {
         handleSignInButtonState(true)
         snackBar(exception.localizedMessage ?: UNKNOWN_ERROR)
-        progress_btn_sign_in.deactivateProgressIndicator(LoadingResult.FAILURE)
+        binding.progressBtnSignIn.deactivateProgressIndicator(LoadingResult.FAILURE)
     }
 
     private fun onLoading() {
-        progress_btn_sign_in.activateLoadingState()
+        binding.progressBtnSignIn.activateLoadingState()
     }
 
     private fun onDoubleBackPressed() {
@@ -138,12 +136,6 @@ class SignInFragment : BaseFragment() {
                 isDoubleClicked = false
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-      //  progress_btn_sign_in.deactivateProgressIndicator()
     }
 
     companion object {
