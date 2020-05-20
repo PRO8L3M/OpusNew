@@ -9,14 +9,7 @@ import com.google.android.material.transition.MaterialContainerTransform
 
 import com.opus.mobile.R
 
-class NewOrderFragment : Fragment() {
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_new_order, container, false)
-    }
+class NewOrderFragment : Fragment(R.layout.fragment_new_order) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

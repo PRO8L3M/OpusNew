@@ -1,55 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/progress_button_layout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/progress_button_guideline_center"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <data>
+        <variable
+            name="viewState"
+            type="com.opus.common.customs.progressButton.ViewState" />
+        <variable name="buttonText" type="String" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/progress_button_text"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_small_8dp"
-        android:layout_marginBottom="@dimen/margin_small_8dp"
-        android:gravity="center"
-        android:fontFamily="@font/opus_font"
-        android:maxLines="@integer/max_lines_1"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/progress_button_guideline_center"
-        app:layout_constraintStart_toStartOf="@+id/progress_button_guideline_center"
-        app:layout_constraintTop_toTopOf="parent" />
+    </data>
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/progress_button_icon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:visibility="invisible"
-        android:src="@drawable/ic_done"
-        android:layout_marginStart="@dimen/margin_small_8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <merge
+        android:id="@+id/progress_button_layout"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <androidx.core.widget.ContentLoadingProgressBar
-        android:id="@+id/progress_button_loading_indicator"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:indeterminate="true"
-        android:indeterminateTint="@android:color/white"
-        android:indeterminateTintMode="src_atop"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/progress_button_text"
-        app:layout_constraintEnd_toEndOf="@+id/progress_button_text"
-        app:layout_constraintStart_toStartOf="@+id/progress_button_text"
-        app:layout_constraintTop_toTopOf="@+id/progress_button_text" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/progress_button_guideline_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
-</merge>
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/progress_button_text"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_small_8dp"
+            android:layout_marginBottom="@dimen/margin_small_8dp"
+            android:fontFamily="@font/opus_font"
+            android:gravity="center"
+            android:maxLines="@integer/max_lines_1"
+            android:textColor="@android:color/black"
+            android:text="@{buttonText}"
+            app:viewVisibility="@{viewState.textVisible}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/progress_button_guideline_center"
+            app:layout_constraintStart_toStartOf="@+id/progress_button_guideline_center"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/progress_button_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="@dimen/margin_small_8dp"
+            android:src="@drawable/ic_done"
+            app:viewVisibility="@{viewState.iconVisible}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/progress_button_loading_indicator"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:indeterminate="true"
+            android:indeterminateTint="@android:color/white"
+            android:indeterminateTintMode="src_atop"
+            app:viewVisibility="@{viewState.progressVisible}"
+            app:layout_constraintBottom_toBottomOf="@+id/progress_button_text"
+            app:layout_constraintEnd_toEndOf="@+id/progress_button_text"
+            app:layout_constraintStart_toStartOf="@+id/progress_button_text"
+            app:layout_constraintTop_toTopOf="@+id/progress_button_text" />
+
+    </merge>
+</layout>

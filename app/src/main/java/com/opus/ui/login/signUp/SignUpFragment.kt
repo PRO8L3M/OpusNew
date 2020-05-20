@@ -50,11 +50,15 @@ class SignUpFragment : BaseFragment() {
 
     private fun setUpButtonListeners() {
         sign_up_button.setOnClickListener {
-            val email = sign_up_email_input_edit_text.text.toString()
-            val password = sign_up_password_input_edit_text.text.toString()
-            val userCredentials = UserCredentials(email, password)
-            viewModel.signUp(userCredentials)
+           signUpNewUser()
         }
+    }
+
+    private fun signUpNewUser() {
+        val email = sign_up_email_input_edit_text.text.toString()
+        val password = sign_up_password_input_edit_text.text.toString()
+        val userCredentials = UserCredentials(email, password)
+        viewModel.signUp(userCredentials)
     }
 
     private fun onSuccess(authResult: AuthResult) = snackBar(resources.getString(R.string.sign_up_create_account_success, authResult.user?.email))

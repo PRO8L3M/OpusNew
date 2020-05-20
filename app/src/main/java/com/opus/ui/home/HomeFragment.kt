@@ -10,6 +10,8 @@ import com.google.android.material.transition.Hold
 import com.opus.common.BaseFragment
 import com.opus.common.SHARED_ELEMENT
 import com.opus.mobile.R
+import com.opus.util.ToolbarInteractor
+import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.fragment_order.order_fab
 
 class HomeFragment : BaseFragment() {
@@ -29,15 +31,34 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         exitTransition = hold
+        setupButtonsClickListeners()
+        setupToolbar()
+    }
 
+    private fun setupButtonsClickListeners() {
         order_fab.setOnClickListener {
-            val extras = FragmentNavigatorExtras(order_fab to SHARED_ELEMENT)
-            findNavController().navigate(
-                R.id.action_orderFragment_to_newOrderFragment,
-                null,
-                null,
-                extras
-            )
+            navigateWithExtras()
         }
+    }
+
+    private fun navigateWithExtras() {
+        val extras = FragmentNavigatorExtras(order_fab to SHARED_ELEMENT)
+        findNavController().navigate(
+            R.id.action_orderFragment_to_newOrderFragment,
+            null,
+            null,
+            extras
+        )
+    }
+
+    private fun setupToolbar() {
+        (activity as ToolbarInteractor).setToolbar(true)
+        activity?.toolbar?.setNavigationOnClickListener { findNavController().popBackStack() }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        (activity as ToolbarInteractor).resetToolbar()
     }
 }

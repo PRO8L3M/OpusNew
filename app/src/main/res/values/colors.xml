@@ -3,9 +3,15 @@
     <color name="colorPrimary">#f10b61</color>
     <color name="colorPrimaryDark">#b70038</color>
     <color name="colorAccent">#ff5b8e</color>
+
     <color name="blue">#1C56DA</color>
     <color name="lightGray">#F7F7F7</color>
     <color name="forestGreen">#0B6623</color>
+
+    <!-- dark theme colors -->
+
+    <color name="gray">#212121</color>
+    <color name="delicateGray">#484848</color>
 
     <!-- Colors to use on views -->
     <color name="ic_launcher_background">@color/colorPrimary</color>

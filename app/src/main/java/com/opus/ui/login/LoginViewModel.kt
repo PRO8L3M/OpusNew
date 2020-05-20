@@ -5,14 +5,14 @@ import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.AuthResult
 import com.opus.data.entity.FirebaseResult
 import com.opus.data.entity.UserCredentials
-import com.opus.data.repository.LoginRepository
 import com.opus.ext.isEmail
+import com.opus.repository.LoginRepositoryImpl
 import com.opus.util.SingleLiveEvent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class LoginViewModel(private val repository: LoginRepository) : ViewModel() {
+class LoginViewModel(private val repository: LoginRepositoryImpl) : ViewModel() {
 
     private val _accountCreation: SingleLiveEvent<FirebaseResult<AuthResult>> by lazy { SingleLiveEvent<FirebaseResult<AuthResult>>() }
     val accountCreation = _accountCreation

@@ -19,6 +19,12 @@ abstract class BaseFragment : Fragment() {
     val viewScope
         get() = viewLifecycleOwner.lifecycle.coroutineScope
 
+    override fun onStart() {
+        super.onStart()
+
+        Timber.tag(javaClass.simpleName).i("on_start")
+    }
+
     @CallSuper
     override fun onCreateView(
         inflater: LayoutInflater,

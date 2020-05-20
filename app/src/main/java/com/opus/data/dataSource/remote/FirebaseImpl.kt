@@ -1,4 +1,4 @@
-package com.opus.data
+package com.opus.data.dataSource.remote
 
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth

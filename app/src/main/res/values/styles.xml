@@ -5,6 +5,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppThemeDarkMode" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@android:color/black</item>
+        <item name="colorPrimaryDark">@color/gray</item>
+        <item name="colorAccent">@color/delicateGray</item>
+    </style>
+
     <style name="CommonEditText" parent="Widget.AppCompat.EditText">
         <item name="android:maxLines">@integer/max_lines_1</item>
         <item name="android:scrollHorizontally">true</item>

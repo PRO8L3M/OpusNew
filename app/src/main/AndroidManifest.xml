@@ -13,7 +13,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name="com.opus.ui.MainActivity"
+            android:name="com.opus.ui.hostActivity.MainActivity"
             android:icon="@mipmap/ic_launcher"
             android:label="@string/app_name">
             <intent-filter>

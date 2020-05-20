@@ -1,18 +1,18 @@
-package com.opus.common.customs
+package com.opus.common.customs.progressButton
 
 import android.content.Context
 import android.os.Parcelable
 import android.util.AttributeSet
 import android.util.SparseArray
-import android.view.View
+import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.DataBindingUtil
 import com.opus.ext.restoreChildViewStates
 import com.opus.ext.saveChildViewStates
+import com.opus.mobile.BR
 import com.opus.mobile.R
+import com.opus.mobile.databinding.ProgressButtonBinding
 import com.opus.util.SavedState
-import kotlinx.android.synthetic.main.progress_button.view.progress_button_icon
-import kotlinx.android.synthetic.main.progress_button.view.progress_button_loading_indicator
-import kotlinx.android.synthetic.main.progress_button.view.progress_button_text
 
 class ProgressButton @JvmOverloads constructor(
     context: Context,
@@ -22,11 +22,12 @@ class ProgressButton @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     private var isLoadingActivated = false
+    private var binding: ProgressButtonBinding =
+        DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.progress_button, this, true)
 
     init {
-        inflate(context, R.layout.progress_button, this)
-        isSaveEnabled = true
         applyAttrs(context, attrs)
+        binding.viewState = ViewState.ACTIVE
     }
 
     private fun applyAttrs(context: Context, attrs: AttributeSet?) {
@@ -35,9 +36,7 @@ class ProgressButton @JvmOverloads constructor(
                 attrs, R.styleable.ProgressButton, defStyleAttr, defStyleRes
             ).apply {
                 try {
-                    progress_button_text.text = getString(R.styleable.ProgressButton_text)
-                    isFocusable = true
-                    isClickable = true
+                    binding.setVariable(BR.buttonText, getString(R.styleable.ProgressButton_text))
                 } finally {
                     recycle()
                 }
@@ -45,25 +44,31 @@ class ProgressButton @JvmOverloads constructor(
         }
     }
 
+    private fun handleViewActivation(isActive: Boolean) {
+        fun handleActivation(isActive: Boolean) {
+            isClickable = isActive
+            isActivated = isActive
+        }
+        if (isActive) handleActivation(true) else handleActivation(false)
+    }
+
     fun activateLoadingState() {
         isLoadingActivated = true
-        progress_button_text.visibility = View.INVISIBLE
-        progress_button_loading_indicator.visibility = View.VISIBLE
+        binding.setVariable(BR.viewState, ViewState.LOADING)
+        handleViewActivation(false)
     }
 
     fun deactivateProgressIndicator(loadingResult: LoadingResult) {
-        fun handleButtonState() {
-            isLoadingActivated = false
-            progress_button_loading_indicator.visibility = View.INVISIBLE
-            progress_button_text.visibility = View.VISIBLE
-        }
+        isLoadingActivated = false
         when(loadingResult) {
-            LoadingResult.SUCCESS -> {
-                progress_button_text.text = resources.getString(R.string.progress_button_text_ok)
-                progress_button_icon.visibility = View.VISIBLE
-                handleButtonState()
+            LoadingResult.SUCCESS -> with(binding) {
+                setVariable(BR.buttonText, resources.getString(R.string.progress_button_text_ok))
+                setVariable(BR.viewState, ViewState.FINISHED)
             }
-            LoadingResult.FAILURE -> { handleButtonState() }
+            LoadingResult.FAILURE ->  {
+                binding.setVariable(BR.viewState, ViewState.ACTIVE)
+                handleViewActivation(true)
+            }
         }
     }
 
@@ -87,7 +92,7 @@ class ProgressButton @JvmOverloads constructor(
             is SavedState -> {
                 super.onRestoreInstanceState(state.superState)
                 state.childrenStates?.let { restoreChildViewStates(it) }
-                if (state.isLoadingActivated) activateLoadingState()
+                if (state.isLoadingActivated) binding.setVariable(BR.viewState, ViewState.LOADING)
             }
             else -> super.onRestoreInstanceState(state)
         }
@@ -96,4 +101,26 @@ class ProgressButton @JvmOverloads constructor(
 
 enum class LoadingResult {
     SUCCESS, FAILURE
+}
+
+enum class ViewState {
+    ACTIVE, LOADING, FINISHED;
+
+    fun isTextVisible() = when(this) {
+        ACTIVE -> true
+        LOADING -> false
+        FINISHED -> true
+    }
+
+    fun isProgressVisible() = when(this) {
+        ACTIVE -> false
+        LOADING -> true
+        FINISHED -> false
+    }
+
+    fun isIconVisible() = when(this) {
+        ACTIVE -> false
+        LOADING -> false
+        FINISHED -> true
+    }
 }
