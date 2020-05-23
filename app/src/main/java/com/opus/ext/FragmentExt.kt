@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import kotlin.properties.ReadOnlyProperty
-import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
 
 fun Fragment.toast(text: String, duration: Int = Toast.LENGTH_SHORT) = Toast.makeText(requireContext(), text, duration).show()
@@ -21,6 +20,8 @@ fun Fragment.snackBar(text: String, duration: Int = Snackbar.LENGTH_LONG) = Snac
 fun Fragment.navigateTo(@IdRes destination: Int) {
     findNavController().navigate(destination)
 }
+
+fun Fragment.navigateBack() = findNavController().popBackStack()
 
 fun <T> Bundle.put(key: String, value: T) {
     when (value) {

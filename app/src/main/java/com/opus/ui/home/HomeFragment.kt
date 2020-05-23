@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.transition.Hold
 import com.opus.common.BaseFragment
 import com.opus.common.SHARED_ELEMENT
+import com.opus.ext.navigateBack
 import com.opus.mobile.R
 import com.opus.util.ToolbarInteractor
 import kotlinx.android.synthetic.main.activity_main.toolbar
@@ -53,7 +54,7 @@ class HomeFragment : BaseFragment() {
 
     private fun setupToolbar() {
         (activity as ToolbarInteractor).setToolbar(true)
-        activity?.toolbar?.setNavigationOnClickListener { findNavController().popBackStack() }
+        activity?.toolbar?.setNavigationOnClickListener { navigateBack() }
     }
 
     override fun onDestroyView() {

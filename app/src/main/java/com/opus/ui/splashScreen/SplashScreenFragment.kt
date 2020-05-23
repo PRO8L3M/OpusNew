@@ -14,10 +14,12 @@ class SplashScreenFragment : Fragment(R.layout.fragment_splash_screen) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.isReadyToNavigate.observe(
-            viewLifecycleOwner,
-            Observer { isReadyToNavigate -> if (isReadyToNavigate) navigateTo(R.id.action_splashScreenFragment_to_signInFragment) })
 
-        viewModel.startSplashScreen()
+        viewModel.isReadyToNavigate.observe(viewLifecycleOwner, Observer(::exitSplashScreen))
+        viewModel.handleSplashScreen()
+    }
+
+    private fun exitSplashScreen(isSplashScreenFinished: Boolean) {
+        if(isSplashScreenFinished) navigateTo(R.id.action_splashScreenFragment_to_signInFragment)
     }
 }

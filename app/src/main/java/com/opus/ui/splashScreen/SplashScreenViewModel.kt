@@ -13,7 +13,7 @@ class SplashScreenViewModel : ViewModel() {
     private val _isReadyToNavigate: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>().apply { value = false } }
     val isReadyToNavigate: LiveData<Boolean> = _isReadyToNavigate
 
-    fun startSplashScreen() {
+    fun handleSplashScreen() {
         viewModelScope.launch {
             delay(SPLASH_SCREEN_DURATION)
             _isReadyToNavigate.value = true
