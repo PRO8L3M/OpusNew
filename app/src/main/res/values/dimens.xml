@@ -12,5 +12,7 @@
     <dimen name="margin_small_4dp">4dp</dimen>
     <dimen name="padding_medium_16dp">16dp</dimen>
     <dimen name="text_size_12sp">12sp</dimen>
+    <dimen name="text_size_18sp">18sp</dimen>
+    <dimen name="text_size_16sp">16sp</dimen>
 
 </resources>

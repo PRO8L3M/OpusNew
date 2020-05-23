@@ -2,8 +2,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:transitionName="shared_element"
     android:background="@color/new_order_background"
+    android:focusableInTouchMode="true"
     tools:context="com.opus.ui.newOrder.NewOrderFragment">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/new_order_guideline_top"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/new_order_voice_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_small_8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/new_order_guideline_top" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/new_order_start"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="START"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_order_voice_result" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/new_order_stop"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:text="STOP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/new_order_voice_result" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
